@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Weather Forecast{% endblock %}
+{% block meta_desc %}7-Day weather forecast tailored for your farm location.{% endblock %}
+{% block page_title %}Micro-Climate Forecast{% endblock %}
+{% block page_subtitle %}7-day projection for {{ location }}{% endblock %}
+
+{% block content %}
+<div class="glass-panel" style="margin-bottom: 24px; padding: 30px;">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <h2 style="font-size: 2.5rem; margin-bottom: 8px;" id="currentTemp">--°C</h2>
+      <p style="color: var(--text-muted); font-size: 1.1rem;" id="currentDesc">Loading local climate data...</p>
+    </div>
+    <div style="font-size: 4rem;" id="currentIcon">⛅</div>
+  </div>
+</div>
+
+<h3 style="margin-bottom: 20px; font-weight: 600;">7-Day Forecast</h3>
+<div id="weatherGrid" class="weather-grid hidden">
+  <!-- Dynamic weather cards injected here -->
+</div>
+
+<div id="loadingContainer" class="loading-placeholder">
+  <div class="loading-spinner"></div>
+  <p>Fetching meteorological data...</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/weather.js"></script>
+{% endblock %}

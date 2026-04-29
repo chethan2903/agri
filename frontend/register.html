@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create your AgriSense account and connect your soil sensor device." />
+  <title>AgriSense — Create Account</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo text-gradient">AgriSense</div>
+        <p class="auth-subtitle">Create an account to start analyzing your soil data.</p>
+      </div>
+
+      {% if error %}
+      <div class="error-msg">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="username">Choose Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username" autofocus />
+        </div>
+        <div class="form-group">
+          <label for="farm_name">Farm Name (Optional)</label>
+          <input type="text" id="farm_name" name="farm_name" placeholder="e.g. Sunny Valley Farm" />
+        </div>
+        <div class="form-group">
+          <label for="location">Location (Optional)</label>
+          <input type="text" id="location" name="location" placeholder="e.g. California, USA" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="new-password" />
+        </div>
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" id="confirm" name="confirm" required autocomplete="new-password" />
+        </div>
+        <button type="submit" class="auth-btn">Create Account & Provision Sensor</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="/login">Sign in instead</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Crop Recommendations{% endblock %}
+{% block meta_desc %}AI-driven crop recommendations based on live soil parameters.{% endblock %}
+{% block page_title %}AI Crop Recommendations{% endblock %}
+{% block page_subtitle %}Discover the best crops for your current soil conditions, powered by ML.{% endblock %}
+
+{% block content %}
+<div class="glass-panel" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <h3 style="margin-bottom: 4px; color: #fff;">Live Sensor Sync Active</h3>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">Recommendations are updating based on real-time soil data from your sensors.</p>
+  </div>
+  <div class="device-pulse-dot" style="width: 12px; height: 12px;"></div>
+</div>
+
+<div id="loadingContainer" class="loading-placeholder">
+  <div class="loading-spinner"></div>
+  <p>Analyzing live soil parameters through the machine learning model...</p>
+</div>
+
+<div id="cropsContainer" class="crop-grid hidden">
+  <!-- Dynamic crop cards injected here by JS -->
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/crops.js"></script>
+{% endblock %}

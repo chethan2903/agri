@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sign in to AgriSense — Real-Time Soil Intelligence" />
+  <title>AgriSense — Sign In</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo text-gradient">AgriSense</div>
+        <p class="auth-subtitle">Welcome back. Enter your credentials to monitor your farm.</p>
+      </div>
+
+      {% if error %}
+      <div class="error-msg">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST" class="auth-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autocomplete="username" autofocus />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password" />
+        </div>
+        <button type="submit" class="auth-btn">Sign In to Dashboard</button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="/register">Create one here</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

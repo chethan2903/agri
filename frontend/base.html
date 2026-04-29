@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{% block meta_desc %}AgriSense — Real-Time Soil Intelligence Dashboard{% endblock %}" />
+  <title>{% block title %}AgriSense{% endblock %} — {{ farm_name }}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="app-body">
+
+  <!-- ── Mobile top bar ──────────────────────────────── -->
+  <header class="mobile-topbar" id="mobileTopbar">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-brand">
+      <span></span>
+      <span class="nav-name">AgriSense</span>
+      <span class="nav-tag">Pro</span>
+    </div>
+    <div class="mobile-device-dot">
+      <span class="device-pulse-dot" id="statusDotMobile"></span>
+    </div>
+  </header>
+
+  <!-- ── Sidebar overlay (mobile) ──────────────────── -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" id="sidebar">
+
+    <!-- Brand -->
+    <div class="sidebar-brand">
+      <div class="sidebar-logo"></div>
+      <div>
+        <div class="sidebar-brand-name">AgriSense <span class="nav-tag">Pro</span></div>
+        <div class="sidebar-farm">{{ farm_name }}</div>
+      </div>
+    </div>
+
+    <!-- Device badge -->
+    <div class="sidebar-device">
+      <span class="device-pulse-dot" id="statusDot"></span>
+      <span class="sidebar-device-id">{{ short_device }}</span>
+      <span class="sidebar-device-loc">{{ location }}</span>
+    </div>
+
+    <!-- Nav links -->
+    <nav class="sidebar-nav" aria-label="Main navigation">
+      <a href="/"        class="sidebar-link {% if active_page == 'dashboard' %}active{% endif %}" id="nav-dashboard">
+        <span class="sidebar-icon"></span>
+        <span>Dashboard</span>
+      </a>
+      <a href="/analyze" class="sidebar-link {% if active_page == 'analyze' %}active{% endif %}" id="nav-analyze">
+        <span class="sidebar-icon"></span>
+        <span>Analyze Soil</span>
+      </a>
+      <a href="/crops"   class="sidebar-link {% if active_page == 'crops' %}active{% endif %}" id="nav-crops">
+        <span class="sidebar-icon"></span>
+        <span>Crops</span>
+      </a>
+      <a href="/history" class="sidebar-link {% if active_page == 'history' %}active{% endif %}" id="nav-history">
+        <span class="sidebar-icon"></span>
+        <span>History</span>
+      </a>
+      <a href="/weather" class="sidebar-link {% if active_page == 'weather' %}active{% endif %}" id="nav-weather">
+        <span class="sidebar-icon"></span>
+        <span>Weather</span>
+      </a>
+      <a href="/profile" class="sidebar-link {% if active_page == 'profile' %}active{% endif %}" id="nav-profile">
+        <span class="sidebar-icon"></span>
+        <span>Profile</span>
+      </a>
+    </nav>
+
+    <!-- Bottom user block -->
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar">{{ username[0].upper() }}</div>
+      <div class="sidebar-user-info">
+        <span class="sidebar-user-name">{{ username }}</span>
+        <span class="sidebar-user-sub">{{ farm_name }}</span>
+      </div>
+      <a href="/logout" class="sidebar-logout" title="Logout"></a>
+    </div>
+  </aside>
+
+  <!-- ══════════════ MAIN CONTENT ══════════════ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+        <p class="page-subtitle">{% block page_subtitle %}{% endblock %}</p>
+      </div>
+      <div class="page-header-right">
+        <div class="header-device-badge">
+          <span class="device-pulse-dot" id="statusDotHeader"></span>
+          <span id="deviceStatusText">Connecting…</span>
+        </div>
+        <div class="header-timestamp">Last update: <span id="lastUpdate">—</span></div>
+      </div>
+    </div>
+
+    <!-- Page body -->
+    <div class="page-body">
+      {% block content %}{% endblock %}
+    </div>
+
+  </main>
+
+  <!-- Shared JS -->
+  <script>
+    // Pass server-side vars to JS
+    window.SOILIQ = {
+      username:    "{{ username }}",
+      farmName:    "{{ farm_name }}",
+      deviceId:    "{{ device_id }}",
+      shortDevice: "{{ short_device }}",
+      location:    "{{ location }}",
+    };
+  </script>
+  {% block scripts %}{% endblock %}
+
+  <!-- Sidebar toggle JS (inline so it works before any page JS) -->
+  <script>
+    (function() {
+      const toggle  = document.getElementById("sidebarToggle");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      function close() {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("visible");
+      }
+      if (toggle)  toggle.addEventListener("click",  () => { sidebar.classList.toggle("open"); overlay.classList.toggle("visible"); });
+      if (overlay) overlay.addEventListener("click",  close);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Analyze Soil{% endblock %}
+{% block meta_desc %}Run a custom machine learning analysis on specific soil parameters.{% endblock %}
+{% block page_title %}Manual Soil Analysis{% endblock %}
+{% block page_subtitle %}Input custom parameters to test 'What-If' scenarios using the ML model.{% endblock %}
+
+{% block content %}
+<div class="bento-grid">
+  
+  <!-- Left: Input Form -->
+  <div class="col-span-5 glass-panel">
+    <div class="panel-title" style="margin-bottom: 24px;">
+      Soil Parameters
+      <button id="btnAutofill" class="btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">
+        Autofill from Sensor
+      </button>
+    </div>
+    
+    <form id="analyzeForm">
+      <!-- NPK -->
+      <h4 style="color: var(--accent-primary); font-size: 0.85rem; margin-bottom: 12px; text-transform: uppercase;">Macronutrients (kg/ha)</h4>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="nitrogen">Nitrogen (N)</label>
+          <input type="number" id="nitrogen" name="nitrogen" required step="0.1" min="0" placeholder="e.g. 90" />
+        </div>
+        <div class="input-wrap">
+          <label for="phosphorus">Phosphorus (P)</label>
+          <input type="number" id="phosphorus" name="phosphorus" required step="0.1" min="0" placeholder="e.g. 42" />
+        </div>
+        <div class="input-wrap">
+          <label for="potassium">Potassium (K)</label>
+          <input type="number" id="potassium" name="potassium" required step="0.1" min="0" placeholder="e.g. 43" />
+        </div>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 24px 0;" />
+      
+      <!-- Conditions -->
+      <h4 style="color: var(--accent-secondary); font-size: 0.85rem; margin-bottom: 12px; text-transform: uppercase;">Environmental Conditions</h4>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="temperature">Temperature (°C)</label>
+          <input type="number" id="temperature" name="temperature" required step="0.1" placeholder="e.g. 20.8" />
+        </div>
+        <div class="input-wrap">
+          <label for="humidity">Humidity (%)</label>
+          <input type="number" id="humidity" name="humidity" required step="0.1" placeholder="e.g. 82.0" />
+        </div>
+        <div class="input-wrap">
+          <label for="ph">Soil pH Level</label>
+          <input type="number" id="ph" name="ph" required step="0.1" placeholder="e.g. 6.5" />
+        </div>
+      </div>
+      
+      <div class="form-row" style="margin-top: 32px;">
+        <div class="input-wrap" style="grid-column: span 2;">
+          <button type="submit" id="btnAnalyze" class="btn-primary">
+            Analyze
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right: Results -->
+  <div class="col-span-7 glass-panel" id="resultsPanel" style="display: none; background: rgba(16, 185, 129, 0.05);">
+    <div class="panel-title" style="color: var(--accent-primary);">Analysis Results Complete</div>
+    
+    <div class="soil-summary-chips" id="resultsChips">
+      <!-- Injected via JS -->
+    </div>
+
+    <!-- Top Recommendation -->
+    <div id="topResultContainer"></div>
+
+    <!-- Other Options -->
+    <h4 style="font-size: 1rem; margin-bottom: 16px;">Alternative Crops</h4>
+    <div class="crop-grid" id="altCropsContainer" style="grid-template-columns: 1fr 1fr; margin-bottom: 32px;">
+      <!-- Injected via JS -->
+    </div>
+
+    <!-- Advisory -->
+    <h4 style="font-size: 1rem; margin-bottom: 16px;">System Advisory</h4>
+    <ul class="advisory-list" id="advisoryList">
+      <!-- Injected via JS -->
+    </ul>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/analyze.js"></script>
+{% endblock %}

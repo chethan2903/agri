@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Sensor History{% endblock %}
+{% block meta_desc %}Historical soil sensor data analysis{% endblock %}
+{% block page_title %}Sensor History{% endblock %}
+{% block page_subtitle %}Historical trends of soil metrics{% endblock %}
+
+{% block content %}
+<div class="bento-grid">
+  <!-- Moisture & Humidity History -->
+  <div class="col-span-12 glass-panel">
+    <div class="panel-title">Moisture & Humidity Trends</div>
+    <div class="chart-container" style="height: 350px;">
+      <canvas id="moistureHistoryChart"></canvas>
+    </div>
+  </div>
+
+  <!-- NPK History -->
+  <div class="col-span-12 glass-panel">
+    <div class="panel-title">Macronutrients (NPK) Trends</div>
+    <div class="chart-container" style="height: 350px;">
+      <canvas id="npkHistoryChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Temperature & pH History -->
+  <div class="col-span-12 glass-panel">
+    <div class="panel-title">Temperature & pH Level</div>
+    <div class="chart-container" style="height: 350px;">
+      <canvas id="tempPhHistoryChart"></canvas>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/history.js"></script>
+{% endblock %}

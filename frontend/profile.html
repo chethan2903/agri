@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Profile Settings{% endblock %}
+{% block meta_desc %}Manage your AgriSense account and farm settings.{% endblock %}
+{% block page_title %}Account Settings{% endblock %}
+{% block page_subtitle %}Manage farm details and security credentials{% endblock %}
+
+{% block content %}
+<div class="bento-grid">
+  
+  <div class="col-span-8 glass-panel">
+    <div class="panel-title">Profile Configuration</div>
+    
+    {% if success %}
+      <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-primary); color: #6ee7b7; padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 0.9rem;">
+        {{ success }}
+      </div>
+    {% endif %}
+    {% if error %}
+      <div class="error-msg">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" class="auth-form" style="max-width: 100%;">
+      
+      <h4 style="color: #fff; font-size: 1rem; margin-bottom: 16px;">Farm Details</h4>
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="farm_name">Farm Name</label>
+          <input type="text" id="farm_name" name="farm_name" value="{{ farm_name }}" />
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" value="{{ location }}" />
+        </div>
+      </div>
+      
+      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 32px 0;" />
+      
+      <h4 style="color: #fff; font-size: 1rem; margin-bottom: 16px;">Security (Leave blank to keep unchanged)</h4>
+      <div class="form-group">
+        <label for="current_password">Current Password (Required to change password)</label>
+        <input type="password" id="current_password" name="current_password" />
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="new_password">New Password</label>
+          <input type="password" id="new_password" name="new_password" />
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="confirm_password">Confirm New Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" />
+        </div>
+      </div>
+      
+      <div style="margin-top: 32px; display: flex; justify-content: flex-end;">
+        <button type="submit" class="btn-primary" style="width: auto; padding: 12px 32px;">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-span-4 glass-panel" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+    <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 700; color: #fff; margin-bottom: 20px; box-shadow: var(--shadow-glow);">
+      {{ username[0].upper() }}
+    </div>
+    <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 4px;">{{ username }}</h3>
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px;">Admin Account</p>
+    
+    <div style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px; text-align: left; margin-bottom: 24px;">
+      <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Device ID</div>
+      <div style="font-weight: 600; color: #fff; font-family: monospace; font-size: 1.1rem; word-break: break-all;">{{ device_id }}</div>
+    </div>
+    
+    <a href="/logout" class="btn-outline" style="color: var(--accent-danger); border-color: rgba(239, 68, 68, 0.3); display: block; width: 100%;">
+      Secure Logout
+    </a>
+  </div>
+
+</div>
+{% endblock %}
