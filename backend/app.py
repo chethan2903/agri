@@ -330,37 +330,37 @@ def _base_ctx(user):
 def index():
     if "user_id" in session:
         return redirect(url_for("dashboard"))
-    return render_template("index.html")
+    return render_frontend("index.html")
 
 @app.route("/dashboard")
 @login_required
 def dashboard():
     user = get_current_user()
-    return render_template("dashboard.html", active_page="dashboard", **_base_ctx(user))
+    return render_frontend("dashboard.html", active_page="dashboard", **_base_ctx(user))
 
 @app.route("/analyze")
 @login_required
 def analyze():
     user = get_current_user()
-    return render_template("analyze.html", active_page="analyze", **_base_ctx(user))
+    return render_frontend("analyze.html", active_page="analyze", **_base_ctx(user))
 
 @app.route("/crops")
 @login_required
 def crops():
     user = get_current_user()
-    return render_template("crops.html", active_page="crops", **_base_ctx(user))
+    return render_frontend("crops.html", active_page="crops", **_base_ctx(user))
 
 @app.route("/history")
 @login_required
 def history():
     user = get_current_user()
-    return render_template("history.html", active_page="history", **_base_ctx(user))
+    return render_frontend("history.html", active_page="history", **_base_ctx(user))
 
 @app.route("/weather")
 @login_required
 def weather():
     user = get_current_user()
-    return render_template("weather.html", active_page="weather", **_base_ctx(user))
+    return render_frontend("weather.html", active_page="weather", **_base_ctx(user))
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
@@ -409,7 +409,7 @@ def profile():
         user = get_current_user()  # re-fetch updated user
 
     created_at = user["created_at"][:10] if user["created_at"] else "—"
-    return render_template(
+    return render_frontend(
         "profile.html",
         active_page = "profile",
         success     = success,
