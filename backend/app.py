@@ -21,11 +21,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
+
 app = Flask(__name__)
 CORS(app)
 
 # ── Persistent secret key (sessions survive restarts) ─────────────────────────
-_KEY_FILE = "secret.key"
+_KEY_FILE = os.path.join(PROJECT_ROOT, "secret.key")
 if os.path.exists(_KEY_FILE):
     with open(_KEY_FILE, "rb") as _f:
         app.secret_key = _f.read()
@@ -36,7 +39,7 @@ else:
     app.secret_key = _key
 
 # ── Database ───────────────────────────────────────────────────────────────────
-DATABASE = "agrisense.db"
+DATABASE = os.path.join(PROJECT_ROOT, "agrisense.db")
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
@@ -92,13 +95,13 @@ def short_device_id(device_id):
     return "AGR-" + device_id[:4].upper() + "-" + device_id[4:8].upper()
 
 # ── Crop knowledge base & Models ───────────────────────────────────────────────
-with open("data/crops.json", "r", encoding="utf-8") as f:
+with open(os.path.join(PROJECT_ROOT, "data", "crops.json"), "r", encoding="utf-8") as f:
     CROPS = json.load(f)
 
-with open("models/crop_model.pkl", "rb") as f:
+with open(os.path.join(PROJECT_ROOT, "models", "crop_model.pkl"), "rb") as f:
     CROP_MODEL = pickle.load(f)
 
-with open("models/crop_labels.pkl", "rb") as f:
+with open(os.path.join(PROJECT_ROOT, "models", "crop_labels.pkl"), "rb") as f:
     CROP_LABELS = pickle.load(f)
 
 # ── Per-user in-memory sensor history ─────────────────────────────────────────

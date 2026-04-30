@@ -1,0 +1,20 @@
+﻿# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment / runtime
+*.env
+.env*
+
+# Flask / local files
+secret.key
+agrisense.db
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# IDE files
+.vscode/
