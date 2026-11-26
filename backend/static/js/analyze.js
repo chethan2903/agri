@@ -51,13 +51,15 @@ function renderResults(json) {
   const recs = json.recommendations || [];
   if (recs.length > 0) {
     const top = recs[0];
+    const topName = top.name || (top.crop ? (top.crop.charAt(0).toUpperCase() + top.crop.slice(1)) : "Unknown");
+    const topScore = top.score !== undefined ? Number(top.score) : (top.probability !== undefined ? Number(top.probability) * 100 : 0);
     document.getElementById("topResultContainer").innerHTML = `
       <div class="top-result-inner">
         <div>
           <div class="top-result-label">Top Recommendation</div>
-          <div class="top-result-name">${top.crop.charAt(0).toUpperCase() + top.crop.slice(1)}</div>
+          <div class="top-result-name">${topName}</div>
         </div>
-        <div class="top-result-score" style="color: var(--accent-primary);">${(top.probability*100).toFixed(1)}%</div>
+        <div class="top-result-score" style="color: var(--accent-primary);">${topScore.toFixed(1)}%</div>
       </div>
     `;
   }
@@ -66,12 +68,12 @@ function renderResults(json) {
   const altContainer = document.getElementById("altCropsContainer");
   altContainer.innerHTML = "";
   recs.slice(1, 5).forEach(crop => {
-    const name = crop.crop.charAt(0).toUpperCase() + crop.crop.slice(1);
-    const prob = (crop.probability*100).toFixed(1);
+    const name = crop.name || (crop.crop ? (crop.crop.charAt(0).toUpperCase() + crop.crop.slice(1)) : "Unknown");
+    const score = crop.score !== undefined ? Number(crop.score) : (crop.probability !== undefined ? Number(crop.probability) * 100 : 0);
     const html = `
       <div style="background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); padding: 16px; border-radius: var(--radius-md);">
         <div style="font-weight: 700; color: #fff; margin-bottom: 4px;">${name}</div>
-        <div style="font-size: 0.85rem; color: var(--text-muted);">Score: ${prob}%</div>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">Score: ${score.toFixed(1)}%</div>
       </div>
     `;
     altContainer.innerHTML += html;

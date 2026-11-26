@@ -75,5 +75,143 @@
     </a>
   </div>
 
+  <!-- Sensor Calibration & Reference Validation -->
+  <div class="col-span-6 glass-panel">
+    <div class="panel-title">Sensor Calibration Profile (Capacitive Moisture &amp; DHT22)</div>
+    <form id="calibrationForm">
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="calSiteName">Trial Site Name</label>
+          <input type="text" id="calSiteName" value="Primary Trial Plot" required />
+        </div>
+        <div class="input-wrap">
+          <label for="calSoilType">Soil Texture Type</label>
+          <select id="calSoilType" style="background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); padding: 12px; border-radius: var(--radius-md); color: #fff;">
+            <option value="loam">Loam (1.00x)</option>
+            <option value="sand">Sandy (1.04x)</option>
+            <option value="clay">Clay (0.94x)</option>
+            <option value="silt">Silt (0.98x)</option>
+            <option value="peat">Peat (0.92x)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="calDryAdc">Dry Air Baseline (ADC)</label>
+          <input type="number" id="calDryAdc" value="3200" required />
+        </div>
+        <div class="input-wrap">
+          <label for="calWetAdc">Wet Saturated Baseline (ADC)</label>
+          <input type="number" id="calWetAdc" value="1300" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="calTempOffset">DHT22 Temp Offset (°C)</label>
+          <input type="number" step="0.1" id="calTempOffset" value="0.0" required />
+        </div>
+        <div class="input-wrap">
+          <label for="calHumOffset">DHT22 Humidity Offset (%)</label>
+          <input type="number" step="0.1" id="calHumOffset" value="0.0" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" style="margin-top: 8px;">Save Calibration Profile</button>
+      <div id="calStatus" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-primary);"></div>
+    </form>
+  </div>
+
+  <div class="col-span-6 glass-panel">
+    <div class="panel-title">Log Reference-Instrument Validation</div>
+    <form id="validationForm">
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="valSensorType">Sensor Channel</label>
+          <select id="valSensorType" style="background: rgba(0,0,0,0.2); border: 1px solid var(--border-light); padding: 12px; border-radius: var(--radius-md); color: #fff;">
+            <option value="dht22_temp">DHT22 Temperature (°C)</option>
+            <option value="dht22_humidity">DHT22 Humidity (%)</option>
+            <option value="soil_moisture">Soil Moisture (%)</option>
+          </select>
+        </div>
+        <div class="input-wrap">
+          <label for="valNotes">Reference Instrument / Note</label>
+          <input type="text" id="valNotes" placeholder="e.g. Calibrated thermo-hygrometer" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="valMeasured">Sensor Reading</label>
+          <input type="number" step="0.01" id="valMeasured" required placeholder="e.g. 26.4" />
+        </div>
+        <div class="input-wrap">
+          <label for="valReference">Reference Reading</label>
+          <input type="number" step="0.01" id="valReference" required placeholder="e.g. 26.1" />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary" style="margin-top: 8px;">Record Validation Check</button>
+      <div id="valStatus" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-primary);"></div>
+    </form>
+  </div>
+
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    async function loadCal() {
+      const res = await fetch("/api/calibration");
+      if (!res.ok) return;
+      const json = await res.json();
+      const c = json.calibration;
+      if (!c) return;
+      document.getElementById("calSiteName").value = c.site_name || "Primary Trial Plot";
+      document.getElementById("calSoilType").value = c.soil_type || "loam";
+      document.getElementById("calDryAdc").value = c.dry_adc;
+      document.getElementById("calWetAdc").value = c.wet_adc;
+      document.getElementById("calTempOffset").value = c.temp_offset;
+      document.getElementById("calHumOffset").value = c.humidity_offset;
+    }
+
+    document.getElementById("calibrationForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const res = await fetch("/api/calibration", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          site_name: document.getElementById("calSiteName").value,
+          soil_type: document.getElementById("calSoilType").value,
+          dry_adc: Number(document.getElementById("calDryAdc").value),
+          wet_adc: Number(document.getElementById("calWetAdc").value),
+          temp_offset: Number(document.getElementById("calTempOffset").value),
+          humidity_offset: Number(document.getElementById("calHumOffset").value)
+        })
+      });
+      const json = await res.json();
+      const st = document.getElementById("calStatus");
+      st.style.color = json.status === "ok" ? "var(--accent-primary)" : "var(--accent-danger)";
+      st.textContent = json.status === "ok" ? "Calibration saved." : (json.message || "Error saving calibration.");
+    });
+
+    document.getElementById("validationForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const res = await fetch("/api/validate-sensor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sensor_type: document.getElementById("valSensorType").value,
+          measured_value: Number(document.getElementById("valMeasured").value),
+          reference_value: Number(document.getElementById("valReference").value),
+          soil_type: document.getElementById("calSoilType").value,
+          notes: document.getElementById("valNotes").value
+        })
+      });
+      const json = await res.json();
+      const st = document.getElementById("valStatus");
+      st.style.color = json.status === "ok" ? "var(--accent-primary)" : "var(--accent-danger)";
+      st.textContent = json.status === "ok" ? `Validation recorded (|error| = ${json.abs_error}).` : (json.message || "Validation error.");
+    });
+
+    loadCal();
+  })();
+</script>
 {% endblock %}

@@ -65,11 +65,18 @@ function initHistoryCharts() {
   });
 }
 
+function formatLabel(d) {
+  if (d.recorded_at) {
+    const dt = new Date(d.recorded_at);
+    if (!isNaN(dt.getTime())) {
+      return `${dt.getHours()}:${dt.getMinutes().toString().padStart(2, '0')}:${dt.getSeconds().toString().padStart(2, '0')}`;
+    }
+  }
+  return d.timestamp || "—";
+}
+
 function updateHistoryCharts(dataArr) {
-  const labels = dataArr.map(d => {
-    const dObj = new Date(d.timestamp);
-    return `${dObj.getHours()}:${dObj.getMinutes().toString().padStart(2, '0')}:${dObj.getSeconds().toString().padStart(2, '0')}`;
-  });
+  const labels = dataArr.map(formatLabel);
 
   // Update M&H
   charts.mh.data.labels = labels;
@@ -91,6 +98,45 @@ function updateHistoryCharts(dataArr) {
   charts.tp.update();
 }
 
+async function fetchReliabilitySummary() {
+  try {
+    const [relRes, valRes] = await Promise.all([
+      fetch("/api/reliability"),
+      fetch("/api/validate-sensor")
+    ]);
+    if (relRes.ok) {
+      const relJson = await relRes.json();
+      const r = relJson.reliability || {};
+      const cal = relJson.calibration || {};
+      const elTotal = document.getElementById("relTotalReadings");
+      const elHw = document.getElementById("relHardwareReadings");
+      const elRate = document.getElementById("relValidRate");
+      const elCal = document.getElementById("relCalibrationSummary");
+      if (elTotal) elTotal.textContent = r.total_persisted_readings ?? 0;
+      if (elHw) elHw.textContent = r.hardware_readings ?? 0;
+      if (elRate) elRate.textContent = r.valid_reading_rate_pct !== null && r.valid_reading_rate_pct !== undefined ? `${r.valid_reading_rate_pct}%` : "No hardware logs yet";
+      if (elCal) elCal.textContent = `${cal.soil_type || "loam"} (Dry ${cal.dry_adc} / Wet ${cal.wet_adc})`;
+    }
+    if (valRes.ok) {
+      const valJson = await valRes.json();
+      const sum = valJson.summary || {};
+      const elDht = document.getElementById("relDhtMae");
+      const elSoil = document.getElementById("relSoilMae");
+      if (elDht) {
+        const t = sum.dht22_temp?.mae;
+        const h = sum.dht22_humidity?.mae;
+        elDht.textContent = (t !== null || h !== null) ? `Temp ${t ?? "—"}°C / RH ${h ?? "—"}%` : "Unvalidated";
+      }
+      if (elSoil) {
+        const m = sum.soil_moisture?.mae;
+        elSoil.textContent = m !== null && m !== undefined ? `${m}% MAE` : "Unvalidated";
+      }
+    }
+  } catch (e) {
+    console.error("Failed to fetch reliability metrics", e);
+  }
+}
+
 async function fetchHistory() {
   try {
     const res = await fetch("/api/history");
@@ -109,6 +155,7 @@ async function fetchHistory() {
 function boot() {
   initHistoryCharts();
   fetchHistory();
+  fetchReliabilitySummary();
   setInterval(fetchHistory, 300000); // 5 minutes
 }
 

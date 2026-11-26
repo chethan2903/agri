@@ -1,0 +1,56 @@
+{
+  "model_type": "RandomForestClassifier",
+  "n_features": 6,
+  "feature_names": [
+    "N",
+    "P",
+    "K",
+    "temperature",
+    "humidity",
+    "ph"
+  ],
+  "n_classes": 22,
+  "classes": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "hyperparameters": {
+    "n_estimators": 100,
+    "criterion": "gini",
+    "max_depth": null,
+    "min_samples_split": 2,
+    "min_samples_leaf": 1,
+    "max_features": "sqrt",
+    "bootstrap": true,
+    "random_state": 42
+  },
+  "feature_importances": {
+    "N": 0.1373,
+    "P": 0.1827,
+    "K": 0.2199,
+    "temperature": 0.1169,
+    "humidity": 0.2605,
+    "ph": 0.0828
+  },
+  "inspected_at": "2026-11-26T04:14:58.962901+00:00"
+}

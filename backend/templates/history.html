@@ -7,6 +7,39 @@
 
 {% block content %}
 <div class="bento-grid">
+  <!-- Long-Term Sensor Reliability & Validation Summary -->
+  <div class="col-span-12 glass-panel">
+    <div class="panel-title">Long-Term Sensor Reliability &amp; Calibration Diagnostics</div>
+    <div class="bento-grid" style="gap: 16px; grid-template-columns: repeat(12, 1fr);">
+      <div class="col-span-3 stat-card">
+        <div class="stat-info">
+          <h4>Persisted Readings</h4>
+          <div class="stat-val" id="relTotalReadings">0</div>
+          <small style="color: var(--text-muted);">Hardware: <span id="relHardwareReadings">0</span></small>
+        </div>
+      </div>
+      <div class="col-span-3 stat-card">
+        <div class="stat-info">
+          <h4>Valid Telemetry Rate</h4>
+          <div class="stat-val" id="relValidRate" style="font-size: 1.15rem;">—</div>
+        </div>
+      </div>
+      <div class="col-span-3 stat-card">
+        <div class="stat-info">
+          <h4>DHT22 Validation MAE</h4>
+          <div class="stat-val" id="relDhtMae" style="font-size: 1.05rem;">—</div>
+        </div>
+      </div>
+      <div class="col-span-3 stat-card">
+        <div class="stat-info">
+          <h4>Moisture Profile &amp; MAE</h4>
+          <div style="font-size: 0.9rem; font-weight: 600; color: #fff;" id="relCalibrationSummary">—</div>
+          <small style="color: var(--text-muted);" id="relSoilMae">—</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Moisture & Humidity History -->
   <div class="col-span-12 glass-panel">
     <div class="panel-title">Moisture & Humidity Trends</div>

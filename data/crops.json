@@ -2,541 +2,481 @@
   {
     "name": "Rice",
     "image": "",
-    "pH": [
-      5.5,
-      7.0
-    ],
-    "moisture": [
-      70,
-      95
-    ],
-    "nitrogen": [
-      80,
-      120
-    ],
-    "phosphorus": [
-      40,
-      60
-    ],
-    "potassium": [
-      40,
-      60
-    ],
-    "temperature": [
-      20,
-      35
-    ],
-    "humidity": [
-      60,
-      90
-    ],
+    "pH": [5.5, 7.0],
+    "moisture": [70, 95],
+    "nitrogen": [80, 120],
+    "phosphorus": [40, 60],
+    "potassium": [40, 60],
+    "temperature": [20, 35],
+    "humidity": [60, 90],
     "season": "Kharif",
     "description": "Staple grain requiring flooded paddy fields; thrives in tropical climates.",
     "waterRequirement": "High",
-    "growthDuration": "90-120 days"
-  },
-  {
-    "name": "Wheat",
-    "image": "",
-    "pH": [
-      6.0,
-      7.5
-    ],
-    "moisture": [
-      40,
-      65
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      30,
-      50
-    ],
-    "temperature": [
-      10,
-      24
-    ],
-    "humidity": [
-      40,
-      70
-    ],
-    "season": "Rabi",
-    "description": "Cool-season cereal grain; second most cultivated crop globally.",
-    "waterRequirement": "Moderate",
-    "growthDuration": "90-120 days"
+    "growthDuration": "90-120 days",
+    "tags": ["Staple", "Grain", "High Water"]
   },
   {
     "name": "Maize",
     "image": "",
-    "pH": [
-      5.8,
-      7.0
-    ],
-    "moisture": [
-      50,
-      75
-    ],
-    "nitrogen": [
-      80,
-      150
-    ],
-    "phosphorus": [
-      40,
-      80
-    ],
-    "potassium": [
-      40,
-      80
-    ],
-    "temperature": [
-      18,
-      35
-    ],
-    "humidity": [
-      50,
-      80
-    ],
+    "pH": [5.8, 7.0],
+    "moisture": [50, 75],
+    "nitrogen": [80, 150],
+    "phosphorus": [40, 80],
+    "potassium": [40, 80],
+    "temperature": [18, 35],
+    "humidity": [50, 80],
     "season": "Kharif",
     "description": "Versatile crop used for food, feed, and biofuel production.",
     "waterRequirement": "Moderate",
-    "growthDuration": "60-90 days"
-  },
-  {
-    "name": "Tomato",
-    "image": "",
-    "pH": [
-      6.0,
-      7.0
-    ],
-    "moisture": [
-      55,
-      75
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      50,
-      90
-    ],
-    "potassium": [
-      80,
-      120
-    ],
-    "temperature": [
-      18,
-      30
-    ],
-    "humidity": [
-      50,
-      75
-    ],
-    "season": "Rabi",
-    "description": "High-value vegetable crop requiring warm days and cool nights.",
-    "waterRequirement": "Moderate-High",
-    "growthDuration": "60-80 days"
-  },
-  {
-    "name": "Cotton",
-    "image": "",
-    "pH": [
-      6.0,
-      7.5
-    ],
-    "moisture": [
-      45,
-      70
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      30,
-      60
-    ],
-    "potassium": [
-      40,
-      80
-    ],
-    "temperature": [
-      25,
-      40
-    ],
-    "humidity": [
-      40,
-      65
-    ],
-    "season": "Kharif",
-    "description": "Cash crop requiring long frost-free growing season.",
-    "waterRequirement": "Moderate",
-    "growthDuration": "150-180 days"
-  },
-  {
-    "name": "Sugarcane",
-    "image": "",
-    "pH": [
-      6.0,
-      7.5
-    ],
-    "moisture": [
-      60,
-      85
-    ],
-    "nitrogen": [
-      80,
-      120
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      60,
-      100
-    ],
-    "temperature": [
-      24,
-      40
-    ],
-    "humidity": [
-      55,
-      80
-    ],
-    "season": "Year-round",
-    "description": "Tropical grass crop; primary source of sugar worldwide.",
-    "waterRequirement": "High",
-    "growthDuration": "270-365 days"
-  },
-  {
-    "name": "Soybean",
-    "image": "",
-    "pH": [
-      6.0,
-      7.0
-    ],
-    "moisture": [
-      45,
-      70
-    ],
-    "nitrogen": [
-      20,
-      50
-    ],
-    "phosphorus": [
-      50,
-      80
-    ],
-    "potassium": [
-      60,
-      100
-    ],
-    "temperature": [
-      20,
-      32
-    ],
-    "humidity": [
-      50,
-      75
-    ],
-    "season": "Kharif",
-    "description": "Nitrogen-fixing legume; excellent for soil health and protein.",
-    "waterRequirement": "Moderate",
-    "growthDuration": "90-120 days"
-  },
-  {
-    "name": "Potato",
-    "image": "",
-    "pH": [
-      5.5,
-      6.5
-    ],
-    "moisture": [
-      60,
-      80
-    ],
-    "nitrogen": [
-      80,
-      120
-    ],
-    "phosphorus": [
-      60,
-      100
-    ],
-    "potassium": [
-      80,
-      150
-    ],
-    "temperature": [
-      10,
-      22
-    ],
-    "humidity": [
-      55,
-      75
-    ],
-    "season": "Rabi",
-    "description": "Cool-season tuber crop; fourth most important food crop globally.",
-    "waterRequirement": "Moderate-High",
-    "growthDuration": "75-120 days"
-  },
-  {
-    "name": "Onion",
-    "image": "",
-    "pH": [
-      6.0,
-      7.0
-    ],
-    "moisture": [
-      50,
-      70
-    ],
-    "nitrogen": [
-      40,
-      80
-    ],
-    "phosphorus": [
-      50,
-      80
-    ],
-    "potassium": [
-      60,
-      100
-    ],
-    "temperature": [
-      13,
-      24
-    ],
-    "humidity": [
-      45,
-      70
-    ],
-    "season": "Rabi",
-    "description": "Bulb vegetable; prefers cool temperatures and well-drained soil.",
-    "waterRequirement": "Moderate",
-    "growthDuration": "90-120 days"
-  },
-  {
-    "name": "Banana",
-    "image": "",
-    "pH": [
-      5.5,
-      7.0
-    ],
-    "moisture": [
-      65,
-      85
-    ],
-    "nitrogen": [
-      100,
-      150
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      100,
-      200
-    ],
-    "temperature": [
-      26,
-      38
-    ],
-    "humidity": [
-      65,
-      90
-    ],
-    "season": "Year-round",
-    "description": "Tropical fruit plant requiring warm climate and high humidity.",
-    "waterRequirement": "High",
-    "growthDuration": "270-300 days"
-  },
-  {
-    "name": "Groundnut",
-    "image": "",
-    "pH": [
-      6.0,
-      7.0
-    ],
-    "moisture": [
-      40,
-      65
-    ],
-    "nitrogen": [
-      20,
-      40
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      40,
-      80
-    ],
-    "temperature": [
-      25,
-      38
-    ],
-    "humidity": [
-      45,
-      70
-    ],
-    "season": "Kharif",
-    "description": "Nitrogen-fixing oilseed crop; thrives in well-drained sandy loam soil.",
-    "waterRequirement": "Low-Moderate",
-    "growthDuration": "90-120 days"
-  },
-  {
-    "name": "Sunflower",
-    "image": "",
-    "pH": [
-      6.0,
-      7.5
-    ],
-    "moisture": [
-      40,
-      65
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      50,
-      80
-    ],
-    "temperature": [
-      20,
-      35
-    ],
-    "humidity": [
-      40,
-      65
-    ],
-    "season": "Kharif",
-    "description": "Drought-tolerant oilseed crop with deep taproot system.",
-    "waterRequirement": "Low-Moderate",
-    "growthDuration": "80-100 days"
+    "growthDuration": "60-90 days",
+    "tags": ["Cereal", "Versatile", "Moderate Water"]
   },
   {
     "name": "Chickpea",
     "image": "",
-    "pH": [
-      6.5,
-      7.5
-    ],
-    "moisture": [
-      30,
-      55
-    ],
-    "nitrogen": [
-      20,
-      40
-    ],
-    "phosphorus": [
-      40,
-      70
-    ],
-    "potassium": [
-      30,
-      60
-    ],
-    "temperature": [
-      15,
-      28
-    ],
-    "humidity": [
-      30,
-      55
-    ],
+    "pH": [6.5, 7.5],
+    "moisture": [30, 55],
+    "nitrogen": [20, 40],
+    "phosphorus": [40, 70],
+    "potassium": [30, 60],
+    "temperature": [15, 28],
+    "humidity": [30, 55],
     "season": "Rabi",
     "description": "Cool-season legume; fixes nitrogen and improves soil fertility.",
     "waterRequirement": "Low",
-    "growthDuration": "90-100 days"
+    "growthDuration": "90-100 days",
+    "tags": ["Pulse", "Legume", "Low Water"]
+  },
+  {
+    "name": "Kidneybeans",
+    "image": "",
+    "pH": [5.5, 6.0],
+    "moisture": [50, 70],
+    "nitrogen": [15, 35],
+    "phosphorus": [55, 80],
+    "potassium": [15, 30],
+    "temperature": [15, 25],
+    "humidity": [60, 75],
+    "season": "Kharif",
+    "description": "Nutrient-rich legume requiring well-drained soil and moderate warmth.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "90-120 days",
+    "tags": ["Pulse", "Legume", "Protein"]
+  },
+  {
+    "name": "Pigeonpeas",
+    "image": "",
+    "pH": [5.0, 7.0],
+    "moisture": [40, 65],
+    "nitrogen": [15, 35],
+    "phosphorus": [55, 80],
+    "potassium": [15, 30],
+    "temperature": [18, 35],
+    "humidity": [40, 65],
+    "season": "Kharif",
+    "description": "Drought-resistant pulse crop essential for nitrogen fixation.",
+    "waterRequirement": "Low-Moderate",
+    "growthDuration": "150-180 days",
+    "tags": ["Pulse", "Drought Resistant"]
+  },
+  {
+    "name": "Mothbeans",
+    "image": "",
+    "pH": [3.5, 8.5],
+    "moisture": [20, 45],
+    "nitrogen": [15, 35],
+    "phosphorus": [35, 60],
+    "potassium": [15, 30],
+    "temperature": [24, 32],
+    "humidity": [35, 60],
+    "season": "Kharif",
+    "description": "Extremely drought-hardy legume suitable for arid regions.",
+    "waterRequirement": "Very Low",
+    "growthDuration": "75-90 days",
+    "tags": ["Arid", "Pulse", "Low Water"]
+  },
+  {
+    "name": "Mungbean",
+    "image": "",
+    "pH": [6.2, 7.2],
+    "moisture": [40, 60],
+    "nitrogen": [15, 35],
+    "phosphorus": [35, 60],
+    "potassium": [15, 30],
+    "temperature": [25, 35],
+    "humidity": [60, 80],
+    "season": "Kharif/Summer",
+    "description": "Fast-growing short-duration pulse crop high in protein.",
+    "waterRequirement": "Low",
+    "growthDuration": "60-75 days",
+    "tags": ["Pulse", "Short Duration"]
+  },
+  {
+    "name": "Blackgram",
+    "image": "",
+    "pH": [6.5, 7.8],
+    "moisture": [45, 65],
+    "nitrogen": [35, 55],
+    "phosphorus": [55, 75],
+    "potassium": [20, 40],
+    "temperature": [25, 35],
+    "humidity": [60, 75],
+    "season": "Kharif",
+    "description": "Popular pulse crop used in various traditional culinary dishes.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "70-90 days",
+    "tags": ["Pulse", "Protein"]
+  },
+  {
+    "name": "Lentil",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [40, 60],
+    "nitrogen": [15, 35],
+    "phosphorus": [55, 80],
+    "potassium": [15, 30],
+    "temperature": [18, 30],
+    "humidity": [60, 70],
+    "season": "Rabi",
+    "description": "Cool-climate pulse rich in essential amino acids and iron.",
+    "waterRequirement": "Low-Moderate",
+    "growthDuration": "80-110 days",
+    "tags": ["Pulse", "Cool Season"]
+  },
+  {
+    "name": "Pomegranate",
+    "image": "",
+    "pH": [5.5, 7.5],
+    "moisture": [40, 60],
+    "nitrogen": [15, 35],
+    "phosphorus": [10, 30],
+    "potassium": [35, 50],
+    "temperature": [18, 38],
+    "humidity": [35, 55],
+    "season": "Year-round",
+    "description": "High-value fruit crop well adapted to semi-arid climates.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "2-3 years (first fruit)",
+    "tags": ["Fruit", "High Value", "Semi-Arid"]
+  },
+  {
+    "name": "Banana",
+    "image": "",
+    "pH": [5.5, 7.0],
+    "moisture": [65, 85],
+    "nitrogen": [100, 150],
+    "phosphorus": [40, 70],
+    "potassium": [100, 200],
+    "temperature": [26, 38],
+    "humidity": [65, 90],
+    "season": "Year-round",
+    "description": "Tropical fruit plant requiring warm climate and high humidity.",
+    "waterRequirement": "High",
+    "growthDuration": "270-300 days",
+    "tags": ["Fruit", "Tropical", "High Potassium"]
   },
   {
     "name": "Mango",
     "image": "",
-    "pH": [
-      5.5,
-      7.5
-    ],
-    "moisture": [
-      50,
-      75
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      30,
-      60
-    ],
-    "potassium": [
-      60,
-      100
-    ],
-    "temperature": [
-      24,
-      40
-    ],
-    "humidity": [
-      45,
-      75
-    ],
+    "pH": [5.5, 7.5],
+    "moisture": [50, 75],
+    "nitrogen": [60, 100],
+    "phosphorus": [30, 60],
+    "potassium": [60, 100],
+    "temperature": [24, 40],
+    "humidity": [45, 75],
     "season": "Year-round",
     "description": "Tropical fruit tree requiring seasonal dry spell for flowering.",
     "waterRequirement": "Moderate",
-    "growthDuration": "4-5 years (first fruit)"
+    "growthDuration": "4-5 years (first fruit)",
+    "tags": ["Fruit Tree", "Perennial"]
+  },
+  {
+    "name": "Grapes",
+    "image": "",
+    "pH": [5.5, 7.0],
+    "moisture": [40, 65],
+    "nitrogen": [15, 35],
+    "phosphorus": [120, 145],
+    "potassium": [195, 205],
+    "temperature": [10, 40],
+    "humidity": [75, 85],
+    "season": "Year-round",
+    "description": "Perennial vine fruit crop requiring high potassium and phosphorus.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "2-3 years",
+    "tags": ["Commercial Fruit", "High Potassium"]
+  },
+  {
+    "name": "Watermelon",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [50, 70],
+    "nitrogen": [80, 120],
+    "phosphorus": [10, 30],
+    "potassium": [45, 55],
+    "temperature": [24, 30],
+    "humidity": [80, 90],
+    "season": "Summer",
+    "description": "Warm-season fruit vine with high water content and rapid growth.",
+    "waterRequirement": "High",
+    "growthDuration": "80-100 days",
+    "tags": ["Summer Fruit", "High Water"]
+  },
+  {
+    "name": "Muskmelon",
+    "image": "",
+    "pH": [6.0, 6.7],
+    "moisture": [45, 65],
+    "nitrogen": [80, 120],
+    "phosphorus": [10, 30],
+    "potassium": [45, 55],
+    "temperature": [27, 30],
+    "humidity": [90, 95],
+    "season": "Summer",
+    "description": "Sweet melon crop thriving in warm climates with high atmospheric humidity.",
+    "waterRequirement": "Moderate-High",
+    "growthDuration": "75-90 days",
+    "tags": ["Fruit", "Melon", "Warm Season"]
+  },
+  {
+    "name": "Apple",
+    "image": "",
+    "pH": [5.5, 6.5],
+    "moisture": [50, 70],
+    "nitrogen": [15, 35],
+    "phosphorus": [120, 145],
+    "potassium": [195, 205],
+    "temperature": [21, 24],
+    "humidity": [90, 95],
+    "season": "Temperate",
+    "description": "Temperate orchard crop requiring cool temperatures and chilling hours.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "3-4 years (first fruit)",
+    "tags": ["Temperate Fruit", "Orchard"]
+  },
+  {
+    "name": "Orange",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [50, 70],
+    "nitrogen": [15, 35],
+    "phosphorus": [10, 30],
+    "potassium": [5, 20],
+    "temperature": [10, 35],
+    "humidity": [90, 95],
+    "season": "Year-round",
+    "description": "Citrus fruit crop high in Vitamin C requiring subtropical climate.",
+    "waterRequirement": "Moderate-High",
+    "growthDuration": "3-5 years",
+    "tags": ["Citrus", "Fruit Tree"]
+  },
+  {
+    "name": "Papaya",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [55, 75],
+    "nitrogen": [35, 70],
+    "phosphorus": [45, 70],
+    "potassium": [45, 70],
+    "temperature": [23, 44],
+    "humidity": [90, 95],
+    "season": "Year-round",
+    "description": "Fast-growing tropical fruit tree producing continuous harvest.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "9-12 months",
+    "tags": ["Tropical Fruit", "Fast Growing"]
+  },
+  {
+    "name": "Coconut",
+    "image": "",
+    "pH": [5.0, 8.0],
+    "moisture": [60, 85],
+    "nitrogen": [15, 35],
+    "phosphorus": [10, 30],
+    "potassium": [25, 40],
+    "temperature": [25, 30],
+    "humidity": [90, 99],
+    "season": "Year-round",
+    "description": "Coastal tropical palm crop resilient to high salinity and humidity.",
+    "waterRequirement": "High",
+    "growthDuration": "5-6 years",
+    "tags": ["Coastal Palm", "Perennial"]
+  },
+  {
+    "name": "Cotton",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [45, 70],
+    "nitrogen": [100, 140],
+    "phosphorus": [35, 60],
+    "potassium": [15, 30],
+    "temperature": [22, 26],
+    "humidity": [75, 85],
+    "season": "Kharif",
+    "description": "Major fiber cash crop requiring warm climate and abundant sunlight.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "150-180 days",
+    "tags": ["Fiber", "Cash Crop"]
+  },
+  {
+    "name": "Jute",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [65, 85],
+    "nitrogen": [60, 90],
+    "phosphorus": [35, 60],
+    "potassium": [35, 55],
+    "temperature": [24, 38],
+    "humidity": [70, 90],
+    "season": "Kharif",
+    "description": "Natural bast fiber crop thriving in warm humid monsoon climates.",
+    "waterRequirement": "High",
+    "growthDuration": "120-150 days",
+    "tags": ["Fiber", "Monsoon Crop"]
   },
   {
     "name": "Coffee",
     "image": "",
-    "pH": [
-      5.0,
-      6.5
-    ],
-    "moisture": [
-      55,
-      80
-    ],
-    "nitrogen": [
-      60,
-      100
-    ],
-    "phosphorus": [
-      30,
-      60
-    ],
-    "potassium": [
-      60,
-      100
-    ],
-    "temperature": [
-      15,
-      28
-    ],
-    "humidity": [
-      60,
-      85
-    ],
+    "pH": [5.0, 6.5],
+    "moisture": [55, 80],
+    "nitrogen": [80, 120],
+    "phosphorus": [15, 35],
+    "potassium": [25, 40],
+    "temperature": [23, 28],
+    "humidity": [50, 65],
     "season": "Year-round",
-    "description": "Shade-grown crop thriving in tropical highlands.",
+    "description": "Shade-grown commercial plantation crop thriving in tropical highlands.",
     "waterRequirement": "Moderate-High",
-    "growthDuration": "3-4 years (first fruit)"
+    "growthDuration": "3-4 years (first fruit)",
+    "tags": ["Beverage Crop", "Highland"]
+  },
+  {
+    "name": "Wheat",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [40, 65],
+    "nitrogen": [60, 100],
+    "phosphorus": [40, 70],
+    "potassium": [30, 50],
+    "temperature": [10, 24],
+    "humidity": [40, 70],
+    "season": "Rabi",
+    "description": "Cool-season cereal grain; second most cultivated crop globally.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "90-120 days",
+    "tags": ["Cereal", "Staple"]
+  },
+  {
+    "name": "Tomato",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [55, 75],
+    "nitrogen": [60, 100],
+    "phosphorus": [50, 90],
+    "potassium": [80, 120],
+    "temperature": [18, 30],
+    "humidity": [50, 75],
+    "season": "Rabi/Kharif",
+    "description": "High-value vegetable crop requiring warm days and cool nights.",
+    "waterRequirement": "Moderate-High",
+    "growthDuration": "60-80 days",
+    "tags": ["Vegetable", "High Value"]
+  },
+  {
+    "name": "Sugarcane",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [60, 85],
+    "nitrogen": [80, 120],
+    "phosphorus": [40, 70],
+    "potassium": [60, 100],
+    "temperature": [24, 40],
+    "humidity": [55, 80],
+    "season": "Year-round",
+    "description": "Tropical grass crop; primary source of sugar worldwide.",
+    "waterRequirement": "High",
+    "growthDuration": "270-365 days",
+    "tags": ["Cash Crop", "Sugar"]
+  },
+  {
+    "name": "Soybean",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [45, 70],
+    "nitrogen": [20, 50],
+    "phosphorus": [50, 80],
+    "potassium": [60, 100],
+    "temperature": [20, 32],
+    "humidity": [50, 75],
+    "season": "Kharif",
+    "description": "Nitrogen-fixing legume; excellent for soil health and protein.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "90-120 days",
+    "tags": ["Oilseed", "Legume"]
+  },
+  {
+    "name": "Potato",
+    "image": "",
+    "pH": [5.5, 6.5],
+    "moisture": [60, 80],
+    "nitrogen": [80, 120],
+    "phosphorus": [60, 100],
+    "potassium": [80, 150],
+    "temperature": [10, 22],
+    "humidity": [55, 75],
+    "season": "Rabi",
+    "description": "Cool-season tuber crop; fourth most important food crop globally.",
+    "waterRequirement": "Moderate-High",
+    "growthDuration": "75-120 days",
+    "tags": ["Tuber", "Staple"]
+  },
+  {
+    "name": "Onion",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [50, 70],
+    "nitrogen": [40, 80],
+    "phosphorus": [50, 80],
+    "potassium": [60, 100],
+    "temperature": [13, 24],
+    "humidity": [45, 70],
+    "season": "Rabi",
+    "description": "Bulb vegetable; prefers cool temperatures and well-drained soil.",
+    "waterRequirement": "Moderate",
+    "growthDuration": "90-120 days",
+    "tags": ["Vegetable", "Bulb"]
+  },
+  {
+    "name": "Groundnut",
+    "image": "",
+    "pH": [6.0, 7.0],
+    "moisture": [40, 65],
+    "nitrogen": [20, 40],
+    "phosphorus": [40, 70],
+    "potassium": [40, 80],
+    "temperature": [25, 38],
+    "humidity": [45, 70],
+    "season": "Kharif",
+    "description": "Nitrogen-fixing oilseed crop; thrives in well-drained sandy loam soil.",
+    "waterRequirement": "Low-Moderate",
+    "growthDuration": "90-120 days",
+    "tags": ["Oilseed", "Legume"]
+  },
+  {
+    "name": "Sunflower",
+    "image": "",
+    "pH": [6.0, 7.5],
+    "moisture": [40, 65],
+    "nitrogen": [60, 100],
+    "phosphorus": [40, 70],
+    "potassium": [50, 80],
+    "temperature": [20, 35],
+    "humidity": [40, 65],
+    "season": "Kharif",
+    "description": "Drought-tolerant oilseed crop with deep taproot system.",
+    "waterRequirement": "Low-Moderate",
+    "growthDuration": "80-100 days",
+    "tags": ["Oilseed", "Drought Tolerant"]
   }
 ]

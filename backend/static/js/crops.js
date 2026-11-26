@@ -4,17 +4,18 @@
 "use strict";
 
 function createCropCard(crop, index) {
-  const prob = crop.probability * 100;
+  const prob = crop.score !== undefined ? Number(crop.score) : (crop.probability !== undefined ? Number(crop.probability) * 100 : 0);
   let color = "#10b981"; // Green
   if (prob < 70) color = "#f59e0b"; // Amber
   if (prob < 40) color = "#ef4444"; // Red
 
   // Format the name nicely
-  const formattedName = crop.crop.charAt(0).toUpperCase() + crop.crop.slice(1);
+  const rawName = crop.name || crop.crop || "Unknown";
+  const formattedName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
   const data = crop.data || {};
-  const season = data.season || "Year-round";
-  const desc = data.desc || "Optimal crop choice for current soil conditions.";
-  const tags = data.tags || [];
+  const season = crop.season || data.season || "Year-round";
+  const desc = crop.description || data.desc || "Optimal crop choice for current soil conditions.";
+  const tags = crop.tags || data.tags || [];
 
   const html = `
     <div class="crop-header">

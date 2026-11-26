@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block title %}Field Coverage Planner{% endblock %}
+{% block meta_desc %}AgriSense Field Coverage Planner — Estimate monitoring node quantities and conceptual placement from farm land area.{% endblock %}
+{% block page_title %}
+<span style="display: inline-flex; align-items: center; gap: 10px;">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 22v-9" />
+    <path d="M12 13C12 8.5 16 6 20 6c0 4.5-3 7-8 7z" />
+    <path d="M12 15C12 10.5 8 8 4 8c0 4.5 3 7 8 7z" />
+    <rect x="3" y="3" width="18" height="18" rx="3" stroke-opacity="0.35" stroke-dasharray="3 3" />
+  </svg>
+  Field Coverage Planner
+</span>
+{% endblock %}
+{% block page_subtitle %}Plan your smart farm monitoring network based on your agricultural land area.{% endblock %}
+
+{% block content %}
+<div class="bento-grid">
+
+  <!-- C. Sensor Deployment Summary Cards -->
+  <div class="col-span-12 fc-summary-grid">
+    <div class="fc-stat-card">
+      <span class="fc-stat-label">Field Area in Acres</span>
+      <span class="fc-stat-value" id="fcSummaryAcres">1.00</span>
+      <span class="fc-stat-sub" id="fcSummaryEquiv">0.4047 ha · 4,046.86 m²</span>
+    </div>
+    <div class="fc-stat-card">
+      <span class="fc-stat-label">Estimated Sensor Nodes</span>
+      <span class="fc-stat-value accent" id="fcSummaryNodes">5</span>
+      <span class="fc-stat-sub" id="fcSummaryFormula">Ceil(1 × 5) planning estimate</span>
+    </div>
+    <div class="fc-stat-card">
+      <span class="fc-stat-label">Configured Deployment Density</span>
+      <span class="fc-stat-value" id="fcSummaryDensity">5 / acre</span>
+      <span class="fc-stat-sub">Configurable monitoring assumption</span>
+    </div>
+    <div class="fc-stat-card">
+      <span class="fc-stat-label">Approximate Field Dimensions</span>
+      <span class="fc-stat-value" id="fcSummaryDimensions">63.6 × 63.6 m</span>
+      <span class="fc-stat-sub">Approximate dimensions assuming a square-shaped field.</span>
+    </div>
+  </div>
+
+  <!-- Left Column: B. Field Area Input Card + F. Deployment Configuration -->
+  <div class="col-span-5" style="display: flex; flex-direction: column; gap: 24px;">
+
+    <div class="glass-panel">
+      <div class="panel-title">
+        <span>Field Information</span>
+        <button type="button" id="fcResetBtn" class="btn-outline" style="padding: 6px 14px; font-size: 0.8rem;">
+          Reset
+        </button>
+      </div>
+
+      <div id="fcValidationError" class="error-msg hidden" role="alert"></div>
+
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="fcAreaInput">Field Area</label>
+          <input type="number" id="fcAreaInput" value="1" min="0.0001" step="any" placeholder="Enter area" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcAreaUnit">Measurement Unit</label>
+          <select id="fcAreaUnit">
+            <option value="acres" selected>Acres</option>
+            <option value="hectares">Hectares</option>
+            <option value="sqm">Square metres (m²)</option>
+            <option value="sqft">Square feet (sq ft)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fc-preset-row" aria-label="Quick field size presets">
+        <button type="button" class="fc-preset-btn" data-acres="0.25">0.25 ac</button>
+        <button type="button" class="fc-preset-btn" data-acres="0.5">0.5 ac</button>
+        <button type="button" class="fc-preset-btn active" data-acres="1">1 ac</button>
+        <button type="button" class="fc-preset-btn" data-acres="1.5">1.5 ac</button>
+        <button type="button" class="fc-preset-btn" data-acres="2">2 ac</button>
+        <button type="button" class="fc-preset-btn" data-acres="5">5 ac</button>
+        <button type="button" class="fc-preset-btn" data-acres="10">10 ac</button>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 20px 0 14px;" />
+
+      <div style="font-size: 0.82rem; font-weight: 600; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.4px;">
+        Bidirectional Unit Converter
+      </div>
+      <div class="fc-unit-grid">
+        <div class="input-wrap">
+          <label for="fcEqAcres">Acres</label>
+          <input type="number" id="fcEqAcres" step="any" min="0.0001" value="1" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcEqHectares">Hectares</label>
+          <input type="number" id="fcEqHectares" step="any" min="0.0001" value="0.4047" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcEqSqm">Square Metres (m²)</label>
+          <input type="number" id="fcEqSqm" step="any" min="0.01" value="4046.86" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcEqSqft">Square Feet (sq ft)</label>
+          <input type="number" id="fcEqSqft" step="any" min="1" value="43560" />
+        </div>
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 20px 0 14px;" />
+
+      <div style="font-size: 0.82rem; font-weight: 600; color: var(--accent-secondary); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 12px;">
+        Optional Location Metadata
+      </div>
+      <div class="form-row">
+        <div class="input-wrap">
+          <label for="fcFieldName">Field Name (Optional)</label>
+          <input type="text" id="fcFieldName" placeholder="e.g. North Paddy Plot" maxlength="100" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcLocationName">Village / District (Optional)</label>
+          <input type="text" id="fcLocationName" placeholder="e.g. Mandya District" maxlength="120" />
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom: 12px;">
+        <div class="input-wrap">
+          <label for="fcLatitude">Latitude (Optional)</label>
+          <input type="number" id="fcLatitude" step="any" min="-90" max="90" placeholder="e.g. 12.5218" />
+        </div>
+        <div class="input-wrap">
+          <label for="fcLongitude">Longitude (Optional)</label>
+          <input type="number" id="fcLongitude" step="any" min="-180" max="180" placeholder="e.g. 76.8951" />
+        </div>
+      </div>
+      <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 14px;">
+        Location metadata is optional and stored only as descriptive reference. No GPS boundary survey is implied.
+      </p>
+      <button type="button" id="fcSavePlanBtn" class="btn-primary">
+        Save Field Plan
+      </button>
+      <div id="fcSaveStatus" style="margin-top: 10px; font-size: 0.85rem; color: var(--accent-primary);"></div>
+    </div>
+
+    <!-- F. Deployment Configuration -->
+    <div class="glass-panel">
+      <div class="panel-title">
+        <span>Deployment Configuration</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 500;">Planning Assumption</span>
+      </div>
+      <div class="input-wrap" style="margin-bottom: 12px;">
+        <label for="fcDensityInput">Proposed Sensor Density (Nodes per Acre)</label>
+        <input type="number" id="fcDensityInput" value="5" min="1" max="50" step="0.5" />
+      </div>
+      <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.55;">
+        Default configuration uses <strong style="color: #fff;">5 sensor nodes per acre</strong>. This value is a configurable planning assumption and can be adjusted to explore denser or sparser monitoring layouts.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Right Column: D. Sensor Placement Visualization + G. Deployment Summary + Disclaimer -->
+  <div class="col-span-7" style="display: flex; flex-direction: column; gap: 24px;">
+
+    <div class="glass-panel">
+      <div class="panel-title">
+        <span>Conceptual Sensor Placement Layout</span>
+        <span id="fcVizBadge" style="font-size: 0.8rem; color: var(--accent-primary); font-weight: 600;">1.00 acre · 5 nodes</span>
+      </div>
+
+      <div class="fc-svg-wrap">
+        <svg id="fcFieldSvg" viewBox="0 0 640 420" role="img" aria-label="Conceptual field sensor placement layout"></svg>
+      </div>
+
+      <div id="fcVizCapNotice" class="hidden" style="margin-top: 10px; font-size: 0.8rem; color: var(--accent-warning);"></div>
+
+      <div class="fc-legend">
+        <div class="fc-legend-item">
+          <span class="fc-legend-dot" style="background: #94a3b8; box-shadow: none;"></span>
+          <span>Pending</span>
+        </div>
+        <div class="fc-legend-item">
+          <span class="fc-legend-dot" style="background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
+          <span>Fetching</span>
+        </div>
+        <div class="fc-legend-item">
+          <span class="fc-legend-dot"></span>
+          <span>Fetched</span>
+        </div>
+        <div class="fc-legend-item">
+          <span class="fc-legend-dot" style="background: #f59e0b; box-shadow: 0 0 8px #f59e0b;"></span>
+          <span>Stale Data</span>
+        </div>
+        <div class="fc-legend-item">
+          <span class="fc-legend-dot" style="background: #ef4444; box-shadow: 0 0 8px #ef4444;"></span>
+          <span>Failed / Offline</span>
+        </div>
+        <div class="fc-legend-item">
+          <span class="fc-legend-border"></span>
+          <span>Conceptual Plot Boundary (Not a GPS Survey)</span>
+        </div>
+      </div>
+
+      <!-- Interactive Node Inspector (click any SVG marker) -->
+      <div id="fcNodeInspector" class="fc-node-inspector hidden"></div>
+
+      <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">
+        Conceptual deployment diagram for visual planning only. Click any node marker to inspect its individual readings. Markers do not represent GPS survey coordinates or exact farm boundaries.
+      </p>
+    </div>
+
+    <!-- G. Deployment Summary -->
+    <div class="glass-panel" style="display: flex; flex-direction: column; gap: 16px;">
+      <div class="panel-title" style="margin-bottom: 0;">Deployment Summary</div>
+      <div class="fc-summary-banner" id="fcDeploymentSummaryText">
+        Your field area is 1 acre. Based on the current deployment configuration of 5 sensor nodes per acre, AgriSense estimates 5 monitoring nodes for this field. This configuration is intended to distribute monitoring across representative sections of the field. Actual placement should be adjusted based on soil variability, crop root zone, irrigation layout and field conditions.
+      </div>
+      <div class="fc-disclaimer" id="fcDisclaimerText">
+        Sensor quantity is an initial planning estimate based on a configurable deployment density of 5 monitoring nodes per acre. Actual requirements depend on soil variability, crop type, irrigation practices, terrain, sensor depth and field conditions. This estimate does not represent a scientifically validated coverage guarantee.
+      </div>
+    </div>
+
+    <!-- Saved Field Plans (SQLite persistence) -->
+    <div class="glass-panel">
+      <div class="panel-title">
+        <span>Saved Field Plans</span>
+        <span style="font-size: 0.78rem; color: var(--text-muted);" id="fcSavedCount">0 saved</span>
+      </div>
+      <div class="fc-saved-list" id="fcSavedPlansList">
+        <div style="color: var(--text-muted); font-size: 0.88rem;">No saved field plans yet.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Field Sensor Collection (Sequential Node-by-Node Workflow) -->
+  <div class="col-span-12 glass-panel" id="fieldSensorCollectionSection">
+    <div class="panel-title" style="flex-wrap: wrap; gap: 12px;">
+      <span>Field Sensor Collection</span>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+        <select id="fcCollectionFieldSelect" aria-label="Select Field" style="background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-light); padding: 8px 12px; border-radius: var(--radius-md); color: #fff; font-size: 0.84rem;"></select>
+        <select id="fcTelemetryMode" aria-label="Telemetry Source Mode" style="background: rgba(15, 23, 42, 0.85); border: 1px solid var(--border-light); padding: 8px 12px; border-radius: var(--radius-md); color: #fff; font-size: 0.84rem;">
+          <option value="live">Live / Stored Telemetry</option>
+          <option value="simulate" selected>Simulation Mode (Demo Multi-Node)</option>
+        </select>
+        <button type="button" id="fcSyncNodesBtn" class="btn-outline" style="padding: 8px 12px; font-size: 0.8rem;">
+          Sync Nodes to Estimate
+        </button>
+        <button type="button" id="fcAddNodeBtn" class="btn-outline" style="padding: 8px 12px; font-size: 0.8rem;">
+          + Add Node
+        </button>
+      </div>
+    </div>
+
+    <div id="fcModeBanner" class="fc-disclaimer" style="margin-bottom: 16px;">
+      Simulation Mode Active — multi-node readings are simulated for demonstration and clearly tagged <strong>Simulated</strong>. Switch to <strong>Live / Stored Telemetry</strong> to read real ESP32 packets posted via <code>/api/sensor-data</code>.
+    </div>
+
+    <!-- Collection Stats Header -->
+    <div class="fc-collection-stats">
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Field Name</div>
+        <div class="fc-mini-stat-val" id="fcColFieldName" style="font-size: 1rem;">—</div>
+      </div>
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Field Area</div>
+        <div class="fc-mini-stat-val" id="fcColFieldArea" style="font-size: 1rem;">—</div>
+      </div>
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Registered Nodes</div>
+        <div class="fc-mini-stat-val" id="fcColTotalNodes">0</div>
+      </div>
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Fetched</div>
+        <div class="fc-mini-stat-val" id="fcColFetched" style="color: var(--accent-primary);">0</div>
+      </div>
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Failed / Offline</div>
+        <div class="fc-mini-stat-val" id="fcColFailed" style="color: var(--accent-danger);">0</div>
+      </div>
+      <div class="fc-mini-stat">
+        <div class="fc-mini-stat-label">Pending</div>
+        <div class="fc-mini-stat-val" id="fcColPending" style="color: var(--text-muted);">0</div>
+      </div>
+    </div>
+
+    <!-- Progress Bar & Controls -->
+    <div style="margin-bottom: 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem; margin-bottom: 8px;">
+        <span id="fcColProgressLabel" style="color: var(--text-muted);">Ready for sequential node scan.</span>
+        <strong id="fcColProgressPct" style="color: var(--accent-primary);">0 / 0 (0%)</strong>
+      </div>
+      <div class="fc-progress-track">
+        <div class="fc-progress-fill" id="fcColProgressBar"></div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+      <button type="button" id="fcFetchFieldDataBtn" class="btn-primary" style="width: auto; padding: 12px 24px;">
+        Fetch Field Data
+      </button>
+      <button type="button" id="fcRetryFailedBtn" class="btn-outline" disabled>
+        Retry Failed Nodes
+      </button>
+      <button type="button" id="fcFetchAllAgainBtn" class="btn-outline">
+        Fetch All Again
+      </button>
+      <button type="button" id="fcClearCollectionBtn" class="btn-outline">
+        Clear Collection Display
+      </button>
+    </div>
+
+    <!-- Combined Field Analysis Summary (shown after collection) -->
+    <div id="fcFieldAnalysisPanel" class="hidden" style="margin-bottom: 22px; padding: 18px; border-radius: var(--radius-md); background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25);">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px;">
+        <h3 style="font-size: 1.05rem; color: #fff;">Combined Field Analysis Summary</h3>
+        <span id="fcAnalysisFreshness" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+      </div>
+      <div class="fc-analysis-grid" id="fcAnalysisMetrics"></div>
+      <div id="fcAnalysisAttention" style="margin-top: 14px; font-size: 0.86rem; color: #e2e8f0;"></div>
+      <div id="fcAnalysisThresholdsNote" style="margin-top: 10px; font-size: 0.76rem; color: var(--text-muted);"></div>
+    </div>
+
+    <!-- Individual Sensor Node Cards -->
+    <div class="fc-node-grid" id="fcNodeCardsGrid">
+      <div style="color: var(--text-muted); font-size: 0.9rem;">Loading registered sensor nodes...</div>
+    </div>
+
+    <!-- Node History Drawer -->
+    <div id="fcNodeHistoryBox" class="fc-node-inspector hidden" style="margin-top: 18px;"></div>
+  </div>
+
+  <!-- E. Sensor Node Details -->
+  <div class="col-span-12 glass-panel">
+    <div class="panel-title">
+      <span>AgriSense Monitoring Node</span>
+      <span style="font-size: 0.8rem; color: var(--text-muted);">Localized Point-Measurement Architecture</span>
+    </div>
+
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6;">
+      Each AgriSense node measures soil and microclimate conditions locally around its installation point—a single sensor node does <strong style="color: #fff;">not</strong> measure an entire acre. Deploying multiple distributed nodes captures spatial variation across representative sections of the field.
+    </p>
+
+    <div class="fc-node-list">
+      <div class="fc-node-item">
+        <h4>1. ESP32 Microcontroller</h4>
+        <p>Reads local sensor channels, applies filtering, and transmits telemetry packets over Wi-Fi to the AgriSense Flask backend.</p>
+      </div>
+      <div class="fc-node-item">
+        <h4>2. Capacitive Soil Moisture Sensor v1.2</h4>
+        <p>Measures localized soil moisture immediately surrounding the inserted probe. Approximate sensing-section insertion depth is <strong style="color: #fff;">8–10 cm</strong> (approximate and model-dependent).</p>
+      </div>
+      <div class="fc-node-item">
+        <h4>3. DHT22 Temperature &amp; Humidity Sensor</h4>
+        <p>Measures ambient air temperature and relative humidity in the crop microclimate surrounding the node enclosure.</p>
+      </div>
+      <div class="fc-node-item">
+        <h4>4. MQ-135 Gas Sensor</h4>
+        <p>Produces analog gas-sensor response readings to monitor localized ambient air quality variations near the node.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/field_coverage.js"></script>
+{% endblock %}
